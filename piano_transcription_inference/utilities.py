@@ -100,6 +100,7 @@ def write_events_to_midi(start_time, note_events, pedal_events, midi_path):
     
     # This configuration is the same as MIDIs in MAESTRO dataset
     ticks_per_beat = 384
+    # TODO : beats_per_second = BPM / 60
     beats_per_second = 2
     ticks_per_second = ticks_per_beat * beats_per_second
     microseconds_per_beat = int(1e6 // beats_per_second)
@@ -520,7 +521,15 @@ def load_audio(path, sr=22050, mono=True, offset=0.0, duration=None,
         n = 0
 
         for frame in input_file:
-            frame = librosa.core.audio.util.buf_to_float(frame, dtype=dtype)
+            """
+            the API librosa.core.audio has been removed in librsoa 0.8.0,
+            replace :
+                old -> librosa.core.audio.util.buf_to_float
+                new -> librosa.util.buf_to_float
+            """
+            # frame = librosa.core.audio.util.buf_to_float(frame, dtype=dtype)
+            frame = librosa.util.buf_to_float(frame, dtype=dtype)
+
             n_prev = n
             n = n + len(frame)
 
@@ -550,10 +559,22 @@ def load_audio(path, sr=22050, mono=True, offset=0.0, duration=None,
         if n_channels > 1:
             y = y.reshape((-1, n_channels)).T
             if mono:
-                y = librosa.core.audio.to_mono(y)
+                """
+                the API librosa.core.audio has been removed in librsoa 0.8.0,
+                replace :
+                    old -> librosa.core.audio.to_mono
+                    new -> librosa.to_mono
+                """
+                y = librosa.to_mono(y)
 
         if sr is not None:
-            y = librosa.core.audio.resample(y, sr_native, sr, res_type=res_type)
+            """
+            the API librosa.core.audio has been removed in librsoa 0.8.0,
+            replace :
+                old -> librosa.core.audio.resample
+                new -> librosa.resample
+            """
+            y = librosa.resample(y, orig_sr=sr_native, target_sr=sr, res_type=res_type)
 
         else:
             sr = sr_native
