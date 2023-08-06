@@ -50,8 +50,6 @@ class LogmelFilterBank(nn.Module):
         """
 
         # Mel spectrogram
-        print(input.shape)
-        print(self.melW.shape)
         input = input.unsqueeze(1)
         input = input.transpose(2, 3)
         mel_spectrogram = torch.matmul(input, self.melW)
