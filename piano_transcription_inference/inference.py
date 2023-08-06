@@ -61,7 +61,7 @@ class PianoTranscription(object):
         else:
             print('Using CPU.')
 
-    def transcribe(self, audio, midi_path):
+    def transcribe(self, audio, bpm, midi_path):
         """Transcribe an audio recording.
 
         Args:
@@ -112,7 +112,7 @@ class PianoTranscription(object):
         # Write MIDI events to file
         if midi_path:
             write_events_to_midi(start_time=0, note_events=est_note_events, 
-                pedal_events=est_pedal_events, midi_path=midi_path)
+                pedal_events=est_pedal_events, bpm=bpm, midi_path=midi_path)
             print('Write out to {}'.format(midi_path))
 
         transcribed_dict = {

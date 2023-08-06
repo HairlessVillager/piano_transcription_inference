@@ -85,7 +85,7 @@ def read_midi(midi_path):
     return midi_dict
 
 
-def write_events_to_midi(start_time, note_events, pedal_events, midi_path):
+def write_events_to_midi(start_time, note_events, pedal_events, bpm, midi_path):
     """Write out note events to MIDI file.
 
     Args:
@@ -98,10 +98,8 @@ def write_events_to_midi(start_time, note_events, pedal_events, midi_path):
     """
     from mido import Message, MidiFile, MidiTrack, MetaMessage
     
-    # This configuration is the same as MIDIs in MAESTRO dataset
     ticks_per_beat = 384
-    # TODO : beats_per_second = BPM / 60
-    beats_per_second = 2
+    beats_per_second = bpm / 60
     ticks_per_second = ticks_per_beat * beats_per_second
     microseconds_per_beat = int(1e6 // beats_per_second)
 
