@@ -2,19 +2,7 @@ import gradio as gr
 from piano_transcription_inference import PianoTranscription, sample_rate, load_audio
 
 def inference(checkpoint_path, audio_path, output_midi_path, device):
-    # TODO : make this code works
-    print(checkpoint_path)
-    print(type(checkpoint_path))
-    print(audio_path)
-    print(type(audio_path))
-    """Inference template.
-
-    Args:
-      model_type: str
-      audio_path: str
-      cuda: bool
-    """
-
+    checkpoint_path = checkpoint_path.name
     device = 'cuda' if device == 'cuda' and torch.cuda.is_available() else 'cpu'
  
     # Load audio
