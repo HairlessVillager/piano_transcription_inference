@@ -5,7 +5,7 @@
 1. Download `piano_transcription_webui-0.0.1-py3-none-any.whl`
 1. Command `pip install piano_transcription_webui-0.0.1-py3-none-any.whl`
 1. If you are using conda environment, enter `conda install ffmpeg` to install FFmpeg.
-   If not, download `ffmpeg.exe` from [https://ffmpeg.org/] and add its path to
+   If not, download `ffmpeg.exe` from [https://ffmpeg.org/](https://ffmpeg.org/) and add its path to
    system environment variable.
 
 ## How to use
