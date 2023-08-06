@@ -18,6 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=['matplotlib', 'mido', 'librosa', 'torchlibrosa', 'resampy'],
+    install_requires=['matplotlib', 'mido', 'librosa', 'torchaudio', 'resampy'],
     python_requires='>=3.6',
 )

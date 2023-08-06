@@ -9,7 +9,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from torchlibrosa.stft import Spectrogram, LogmelFilterBank
+from torchaudio.transforms import Spectrogram
+from .stft import LogmelFilterBank
 from .pytorch_utils import move_data_to_device
 
 
@@ -163,7 +164,7 @@ class Regress_onset_offset_frame_velocity_CRNN(nn.Module):
         fmin = 30
         fmax = sample_rate // 2
 
-        window = 'hann'
+        window_fn = torch.hann_window
         center = True
         pad_mode = 'reflect'
         ref = 1.0
@@ -175,8 +176,8 @@ class Regress_onset_offset_frame_velocity_CRNN(nn.Module):
 
         # Spectrogram extractor
         self.spectrogram_extractor = Spectrogram(n_fft=window_size, 
-            hop_length=hop_size, win_length=window_size, window=window, 
-            center=center, pad_mode=pad_mode, freeze_parameters=True)
+            hop_length=hop_size, win_length=window_size, window_fn=window_fn, 
+            center=center, pad_mode=pad_mode)
 
         # Logmel feature extractor
         self.logmel_extractor = LogmelFilterBank(sr=sample_rate, 
@@ -266,7 +267,7 @@ class Regress_pedal_CRNN(nn.Module):
         fmin = 30
         fmax = sample_rate // 2
 
-        window = 'hann'
+        window_fn = torch.hann_window
         center = True
         pad_mode = 'reflect'
         ref = 1.0
@@ -278,8 +279,8 @@ class Regress_pedal_CRNN(nn.Module):
 
         # Spectrogram extractor
         self.spectrogram_extractor = Spectrogram(n_fft=window_size, 
-            hop_length=hop_size, win_length=window_size, window=window, 
-            center=center, pad_mode=pad_mode, freeze_parameters=True)
+            hop_length=hop_size, win_length=window_size, window_fn=window_fn, 
+            center=center, pad_mode=pad_mode)
 
         # Logmel feature extractor
         self.logmel_extractor = LogmelFilterBank(sr=sample_rate, 
